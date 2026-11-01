@@ -13,9 +13,9 @@
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 [![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A518-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
-[Features](#features) &nbsp;|&nbsp; [Tech Stack](#tech-stack) &nbsp;|&nbsp; [Getting Started](#getting-started) &nbsp;|&nbsp; [Contributing](#contributing) &nbsp;|&nbsp; [License](#license)
+
+[Features](#features) &nbsp;|&nbsp; [Tech Stack](#tech-stack) &nbsp;|&nbsp; [Getting Started](#getting-started) &nbsp;|&nbsp; [License](#license)
 
 </div>
 
