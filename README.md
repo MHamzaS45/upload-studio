@@ -2,9 +2,10 @@
 
 
 # [TierStudio](https://tierstudiotierlist.vercel.app/) 
-(logo.png)
 
-**A high-performance, responsive tier list editor with a custom Canvas 2D export engine deployed on Vercel.**
+
+
+<br> **A high-performance, responsive tier list editor with a custom Canvas 2D export engine deployed on Vercel.** <br>
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -14,8 +15,10 @@
 [![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A518-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+<img width="1891" height="875" alt="image" src="https://github.com/user-attachments/assets/838ea979-650a-4716-b713-593d1de59bc3" />
 
-[Features](#features) &nbsp;|&nbsp; [Tech Stack](#tech-stack) &nbsp;|&nbsp; [Getting Started](#getting-started) &nbsp;|&nbsp; [License](#license)
+
+[Features](#features) &nbsp;|&nbsp; [The Tech Stack](#the-tech-stack) &nbsp;|&nbsp; [Getting Started](#getting-started) &nbsp; |&nbsp; [Planned Features](#planned-features) &nbsp;|&nbsp; [License](#license)
 
 </div>
 
