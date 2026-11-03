@@ -26,7 +26,7 @@
 
 ## Overview
 
-Hello esteemed user! Have you ever find the conventional tierlist creation sites to be a bit...suffocating. Having to go through multiple hoops to create an account, just to make tierlists. Then right after, be greeted with a limited variety of customization features for your tierlist cards, especially without labels...
+Hello esteemed user! Have you ever found the conventional tierlist creation sites to be a bit...suffocating. Having to go through multiple hoops to create an account, just to make tierlists. Then right after, be greeted with a limited variety of customization features for your tierlist cards, especially without labels...
 
 Well then you are in luck, because this is what you might be looking for!
 
