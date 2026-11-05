@@ -2,11 +2,11 @@ import { createClient } from '@supabase/supabase-js'
 
 const url = import.meta.env.VITE_SUPABASE_URL
 const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-if (!url || !key) throw new Error('Supabase environment variables are missing from your local files.')
 
-export const supabase = createClient(url, key)
+export const supabase = createClient(url || 'https://placeholder.invalid', key || 'preview-placeholder-key')
 
 export async function ensureAnonymousUser() {
+  if (!supabase) throw new Error('Supabase is not configured for this preview.')
   const { data: sessionData } = await supabase.auth.getSession()
   if (sessionData.session?.user) return sessionData.session.user
 

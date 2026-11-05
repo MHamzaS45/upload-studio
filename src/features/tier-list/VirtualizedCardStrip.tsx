@@ -32,7 +32,7 @@ export function VirtualizedCardStrip({ itemIds, group }: StripProps) {
         scrollRef.current = element
         dropRef(element)
       }}
-      className={`min-w-0 flex-1 overflow-x-auto rounded-lg p-3 transition-colors ${isDropTarget ? 'bg-cyan-950/50 ring-2 ring-inset ring-cyan-400/70' : ''}`}
+      className={`min-w-0 flex-1 overflow-x-auto rounded-lg p-3 transition-colors ${isDropTarget ? 'bg-[#dbeafe] ring-2 ring-inset ring-[#007aff]/50' : ''}`}
       aria-label={`Drop items in ${group === 'unranked' ? 'unranked' : 'this tier'}`}
     >
       <div className="relative h-24 min-w-full" style={{ width: Math.max(row.getTotalSize(), 1) }}>

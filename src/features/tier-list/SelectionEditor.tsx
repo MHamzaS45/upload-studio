@@ -1,5 +1,3 @@
-// Card detail editor - control zoom, card name, crop X and Y inputs
-
 import { useTierListStore } from './useTierListStore'
 
 export function SelectionEditor() {
@@ -7,61 +5,12 @@ export function SelectionEditor() {
   const item = useTierListStore((state) => selectedId ? state.itemsById[selectedId] : null)
   const updateItem = useTierListStore((state) => state.updateItem)
 
-  if (!item) {
-    return (
-         <aside className="rounded-xl border border-dashed border-slate-700 p-6 text-center text-sm text-slate-400">
-            Select a card to adjust name, zoom and crop .
-         </aside>
-    )
-  }
-
-  return (
-    <aside className="grid gap-4 rounded-xl border border-slate-700 bg-slate-900 p-4 shadow -xl">
-      <label className="flex flex-col gap-1 text-sm font-semibold text-slate-300">
-        Name
-        <input 
-          className="rounded-lg border border-slate-700 bg-slate-800 p-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
-          value={item.name} 
-          onChange={(event) => updateItem(item.id, { name: event.target.value })} 
-        />
-      </label>
-      
-      <label className="flex flex-col gap-1 text-sm font-semibold text-slate-300">
-        Zoom ({item.zoom}x)
-        <input 
-          type="range" 
-          min="1" 
-          max="3" 
-          step="0.1" 
-          value={item.zoom} 
-          onChange={(event) => updateItem(item.id, { zoom: Number(event.target.value) })} 
-          className = "h-2 w-full cursor-pointer rounded-lg bg-slate-700-accent-cyan-400"
-        />
-      </label>
-      
-      <label className="flex flex-col gap-1 text-sm font-semibold text-slate-300">
-        Crop X
-        <input 
-          type="range" 
-          min="0" 
-          max="100" 
-          value={item.cropX} 
-          onChange={(event) => updateItem(item.id, { cropX: Number(event.target.value) })} 
-          className="h-2 w-full cursor-pointer rounded-lg bg-slate-700 accent-cyan-400"
-        />
-      </label>
-      
-      <label className="flex flex-col gap-1 text-sm font-semibold text-slate-300">
-        Crop Y
-        <input 
-          type="range" 
-          min="0" 
-          max="100" 
-          value={item.cropY} 
-          onChange={(event) => updateItem(item.id, { cropY: Number(event.target.value) })} 
-          className="h-2 w-full cursor-pointer rounded-lg bg-slate-700 accent-cyan-400"
-        />
-      </label>
-    </aside>
-  )
+  if (!item) return <p className="py-8 text-center text-sm text-[#8e8e93]">Select a card to edit its name, crop, zoom, or banner.</p>
+  return <div className="grid gap-5 pt-5">
+    <label className="grid gap-1.5 text-sm font-medium">Name<input className="rounded-xl border border-[#d1d1d6] bg-white px-3 py-2 outline-none focus:border-[#007aff]" value={item.name} onChange={(event) => updateItem(item.id, { name: event.target.value })} /></label>
+    <label className="flex items-center justify-between text-sm font-medium">Banner mode<input type="checkbox" className="h-5 w-5 accent-[#007aff]" checked={item.bannerMode ?? false} onChange={(event) => updateItem(item.id, { bannerMode: event.target.checked })} /></label>
+    <label className="grid gap-2 text-sm font-medium">Zoom <input type="range" min="1" max="3" step="0.1" value={item.zoom} onChange={(event) => updateItem(item.id, { zoom: Number(event.target.value) })} /></label>
+    <label className="grid gap-2 text-sm font-medium">Horizontal crop <input type="range" min="0" max="100" value={item.cropX} onChange={(event) => updateItem(item.id, { cropX: Number(event.target.value) })} /></label>
+    <label className="grid gap-2 text-sm font-medium">Vertical crop <input type="range" min="0" max="100" value={item.cropY} onChange={(event) => updateItem(item.id, { cropY: Number(event.target.value) })} /></label>
+  </div>
 }

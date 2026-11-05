@@ -1,11 +1,5 @@
-// Describe one editable ranking level.
-export type Tier = {
-  id: string
-  name: string
-  color: string
-}
+export type Tier = { id: string; name: string; color: string }
 
-// Keep visual edits separate from the stored image asset.
 export type TierItem = {
   id: string
   name: string
@@ -15,6 +9,7 @@ export type TierItem = {
   cropX: number
   cropY: number
   zoom: number
+  bannerMode?: boolean
 }
 
 export type ItemsByTier = Record<string, string[]>

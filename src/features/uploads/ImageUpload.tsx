@@ -1,65 +1,35 @@
-import { useState } from 'react'
-import { runImageQueue } from './runImageQueue'
+import { useEffect, useState } from 'react'
 import { useTierListStore } from '../tier-list/useTierListStore'
-import { uploadAsset } from './uploadAsset'
+
+const ACCEPTED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp'])
+const MAX_FILE_SIZE = 5 * 1024 * 1024
 
 export function ImageUpload() {
-  const [progress, setProgress] = useState('Ready')
+  const [message, setMessage] = useState('Ready to import')
   const addItem = useTierListStore((state) => state.addItem)
 
-  async function handleFiles(files: FileList | null) {
-    if (!files) return
-    try {
-      setProgress('Optimizing images...')
-      
-      const images = await runImageQueue([...files], (done, total) => 
-        setProgress(`Optimizing: ${done} of ${total}`)
-      )
-      let count = 1
-      for (const { file, blob } of images) {
-        setProgress(`Uploading ${count} of ${images.length}...`)
-
-        const tempUrl = URL.createObjectURL(blob)
-        try {
-          const { publicUrl } = await uploadAsset(blob)
-          addItem({
-            id: crypto.randomUUID(),
-            name: file.name,
-            imageUrl: publicUrl, 
-            tierId: null,
-            sortOrder: count - 1,
-            cropX: 50,
-            cropY: 50,
-            zoom: 1
-          })
-        } finally {
-          
-          URL.revokeObjectURL(tempUrl)
-        }
-
-        count++
-      }
-
-      setProgress(`${images.length} images uploaded!`)
-    } catch (error) {
-      console.error('Upload failed:', error)
-      setProgress('Upload failed. Please check your storage bucket permissions.')
-    }
+  function addImage(file: File) {
+    if (!ACCEPTED_TYPES.has(file.type)) { setMessage('Only PNG, JPEG, and WebP images are allowed.'); return }
+    if (file.size > MAX_FILE_SIZE) { setMessage('Images must be smaller than 5 MB.'); return }
+    const imageUrl = URL.createObjectURL(file)
+    addItem({ id: crypto.randomUUID(), name: file.name || 'Pasted image', imageUrl, tierId: null, sortOrder: Date.now(), cropX: 50, cropY: 50, zoom: 1, bannerMode: true })
+    setMessage('Image added to unranked')
   }
 
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      <label className="cursor-pointer rounded-lg bg-cyan-300 px-4 py-2 font-bold text-slate-950">
-        Import Images
-        <input 
-          className="sr-only" 
-          type="file" 
-          accept="image/*" 
-          multiple 
-          onChange={(event) => void handleFiles(event.target.files)} 
-        />
-      </label>
-      <span aria-live="polite" className="text-sm text-slate-300">{progress}</span>
-    </div>
-  )
+  useEffect(() => {
+    const onPaste = (event: ClipboardEvent) => {
+      const file = Array.from(event.clipboardData?.files ?? [])[0]
+      if (!file) return
+      event.preventDefault()
+      addImage(file)
+    }
+    window.addEventListener('paste', onPaste)
+    return () => window.removeEventListener('paste', onPaste)
+  })
+
+  return <div className="flex flex-wrap items-center gap-3">
+    <label className="cursor-pointer rounded-xl bg-[#007aff] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#006ee6]">Import images<input className="sr-only" type="file" accept="image/png,image/jpeg,image/webp" multiple onChange={(event) => Array.from(event.target.files ?? []).forEach(addImage)} /></label>
+    <span className="text-sm text-[#636366]" aria-live="polite">{message}</span>
+    <span className="ml-auto text-xs text-[#8e8e93]">Ctrl/⌘ V to paste · PNG, JPEG, WebP · max 5 MB</span>
+  </div>
 }

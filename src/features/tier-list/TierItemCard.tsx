@@ -1,38 +1,18 @@
 import { useSortable } from '@dnd-kit/react/sortable'
 import { useTierListStore } from './useTierListStore'
 
-
 type CardProps = { id: string; index: number; group: string }
-/* 
- Subscribe to this item's details from itemsById in the store
- Register this card for pointer and keyboard sorting.
-*/
 
 export function TierItemCard({ id, index, group }: CardProps) {
   const item = useTierListStore((state) => state.itemsById[id])
   const sortable = useSortable({ id, index, group, type: 'item', accept: 'item' })
   const selectItem = useTierListStore((state) => state.selectItem)
 
+  if (!item) return null
   return (
-    <button
-      ref={sortable.ref}
-      type="button"
-      onClick={() => selectItem(id)}
-      className={`h-24 w-24 shrink-0 rounded-xl border border-slate-600 bg-gradient-to-br from-cyan-500 to-indigo-600 p-2 text-sm font-bold text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-cyan-300 ${sortable.isDragging ? 'opacity-30' : ''}`}
-      aria-label={`Move ${item?.name ?? id}`}
-     
-    >
-      {item?.imageUrl ? (
-        <img
-          src={item.imageUrl}
-          alt=""
-          loading="lazy"
-          className="h-16 w-full rounded-md object-cover"
-          style={{ objectPosition: `${item.cropX}% ${item.cropY}%`, transform: `scale(${item.zoom})`,}
-        }
-        />
-      ) : null}
-      <span className="line-clamp-2">{item?.name ?? id}</span>
+    <button ref={sortable.ref} type="button" onClick={() => selectItem(id)} className={`group relative h-24 w-24 shrink-0 overflow-hidden rounded-none bg-white text-left ${sortable.isDragging ? 'opacity-30' : ''}`} aria-label={`Move ${item.name}`}>
+      {item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: `${item.cropX}% ${item.cropY}%`, transform: `scale(${item.zoom})` }} />}
+      <span className={`absolute inset-x-0 bottom-0 z-10 px-1.5 py-1 text-[11px] font-semibold leading-tight ${item.bannerMode ? 'bg-white/80 text-[#1c1c1e] backdrop-blur-sm' : 'text-white drop-shadow-[0_1px_3px_rgba(0,0,0,.9)]'}`}>{item.name}</span>
     </button>
   )
 }
