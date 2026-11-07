@@ -33,7 +33,6 @@ export function useAutosave(listId: string | null) {
         saveTierList(listId, snapshot)
           .then(() => {
             localStorage.removeItem(`tierstudio:${listId}`)
-            console.log("Autosave completed successfully. Local backup cleaned up.")
           })
           .catch((err) => {
             console.error("Autosave failed:", err)
