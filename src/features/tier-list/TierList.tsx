@@ -7,7 +7,7 @@ export function TierList() {
   const unrankedItemIds = useTierListStore((state) => state.unrankedItemIds)
 
   return (
-    <div className="overflow-hidden rounded-xl border border-[#d1d1d6]">
+    <div className="theme-tier-board overflow-hidden rounded-xl border">
       {tierOrder.map((tierId) => <TierRow key={tierId} tierId={tierId} />)}
       <section className="grid min-h-28 grid-cols-[5.5rem_minmax(0,1fr)] sm:grid-cols-[7rem_minmax(0,1fr)]">
         <div className="grid place-items-center bg-[#d1d1d6] p-2 text-center text-sm font-bold">Unranked</div>

@@ -9,7 +9,7 @@ export function TierRow({ tierId }: TierRowProps) {
   const updateTier = useTierListStore((state) => state.updateTier)
   const deleteTier = useTierListStore((state) => state.deleteTier)
   if (!tier) return null
-  return <section className="grid min-h-28 grid-cols-[5.5rem_minmax(0,1fr)] border-b border-white/50 last:border-b-0 sm:grid-cols-[7rem_minmax(0,1fr)]">
+  return <section className="theme-tier-row grid min-h-28 grid-cols-[5.5rem_minmax(0,1fr)] border-b last:border-b-0 sm:grid-cols-[7rem_minmax(0,1fr)]">
     <div className="relative flex flex-col items-center justify-center gap-2 p-2 text-center" style={{ backgroundColor: tier.color }}>
       <input maxLength={12} className="w-full bg-transparent text-center text-2xl font-bold tracking-tight text-[#1c1c1e] outline-none" value={tier.name} onChange={(event) => updateTier(tierId, { name: event.target.value })} aria-label={`Rename ${tier.name} tier`} />
       <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wide text-black/60">
