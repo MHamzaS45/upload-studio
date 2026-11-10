@@ -1,38 +1,14 @@
 import { useSortable } from '@dnd-kit/react/sortable'
 import { useTierListStore } from './useTierListStore'
 
-
 type CardProps = { id: string; index: number; group: string }
-/* 
- Subscribe to this item's details from itemsById in the store
- Register this card for pointer and keyboard sorting.
-*/
-
 export function TierItemCard({ id, index, group }: CardProps) {
   const item = useTierListStore((state) => state.itemsById[id])
   const sortable = useSortable({ id, index, group, type: 'item', accept: 'item' })
   const selectItem = useTierListStore((state) => state.selectItem)
-
-  return (
-    <button
-      ref={sortable.ref}
-      type="button"
-      onClick={() => selectItem(id)}
-      className={`h-24 w-24 shrink-0 rounded-xl border border-slate-600 bg-gradient-to-br from-cyan-500 to-indigo-600 p-2 text-sm font-bold text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-cyan-300 ${sortable.isDragging ? 'opacity-30' : ''}`}
-      aria-label={`Move ${item?.name ?? id}`}
-     
-    >
-      {item?.imageUrl ? (
-        <img
-          src={item.imageUrl}
-          alt=""
-          loading="lazy"
-          className="h-16 w-full rounded-md object-cover"
-          style={{ objectPosition: `${item.cropX}% ${item.cropY}%`, transform: `scale(${item.zoom})`,}
-        }
-        />
-      ) : null}
-      <span className="line-clamp-2">{item?.name ?? id}</span>
-    </button>
-  )
+  if (!item) return null
+  return <button ref={sortable.ref} type="button" onClick={() => selectItem(id)} className={`theme-card group relative h-24 w-24 shrink-0 overflow-hidden rounded-none text-left ${sortable.isDragging ? 'invisible' : 'visible'}`} aria-label={`Edit ${item.name}`}>
+    {item.imageUrl && <img src={item.imageUrl} alt="" loading="lazy" className={`absolute inset-0 h-full w-full object-cover transition-opacity ${sortable.isDragging ? 'opacity-60' : ''}`} style={{ objectPosition: `${item.cropX}% ${item.cropY}%`, transform: `scale(${item.zoom})` }} />}
+    <span className={`absolute inset-x-0 bottom-0 z-10 px-1.5 py-1 leading-tight ${item.bannerMode ? 'bg-white/80 backdrop-blur-sm' : 'drop-shadow-[0_1px_3px_rgba(0,0,0,.9)]'}`} style={{ color: item.labelColor ?? (item.bannerMode ? '#1c1c1e' : '#fff'), fontFamily: item.labelFont ?? 'system-ui', fontSize: `${item.labelSize ?? 11}px` }}>{item.name}</span>
+  </button>
 }

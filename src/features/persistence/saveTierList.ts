@@ -6,6 +6,7 @@ between the Supabase and React environment
 import { supabase } from '../../lib/supabase'
 
 export async function saveTierList(listId: string, snapshot: any) {
+  if (!supabase) return
   // Map each tier and its sort order to database-ready rows
   const tiers = snapshot.tierOrder.map((id: string, sortOrder: number) => ({
     id: snapshot.tiersById[id].id,
